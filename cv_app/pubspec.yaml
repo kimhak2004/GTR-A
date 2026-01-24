@@ -1,0 +1,49 @@
+name: cv_app
+description: "A professional CV application built with Flutter featuring a Modern Minimalist design."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # URL launcher for opening links
+  url_launcher: ^6.2.0
+
+  # HTTP for API calls (if needed)
+  http: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Uncomment and add your assets here
+  assets:
+    - assets/
+
+  # Uncomment and add your fonts here
+  # fonts:
+  #   - family: IBMPlexSerif
+  #     fonts:
+  #       - asset: assets/fonts/IBMPlexSerif-Regular.ttf
+  #       - asset: assets/fonts/IBMPlexSerif-Bold.ttf
+  #         weight: 700
+  #   - family: IBMPlexSans
+  #     fonts:
+  #       - asset: assets/fonts/IBMPlexSans-Regular.ttf
+  #       - asset: assets/fonts/IBMPlexSans-Bold.ttf
+  #         weight: 700
+  #   - family: IBMPlexMono
+  #     fonts:
+  #       - asset: assets/fonts/IBMPlexMono-Regular.ttf
+  #       - asset: assets/fonts/IBMPlexMono-Bold.ttf
+  #         weight: 700
