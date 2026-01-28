@@ -17,6 +17,12 @@ dependencies:
   # HTTP for API calls (if needed)
   http: ^1.1.0
 
+  # File picker for selecting files
+  file_picker: ^6.1.1
+  
+  # Path provider for accessing file system directories
+  path_provider: ^2.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

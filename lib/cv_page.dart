@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'models.dart';
 import 'dart:ui';
+import 'file_manager_demo.dart';
 
 
 
@@ -101,6 +102,18 @@ class _CVPageState extends State<CVPage> {
               IconButton(
                 icon: const Icon(Icons.code, color: Color(0xFF00D9FF)),
                 onPressed: () => _launchUrl(CVData.github),
+              ),
+              IconButton(
+                icon: const Icon(Icons.folder_delete, color: Color(0xFF00D9FF)),
+                tooltip: 'File Manager Demo',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FileManagerDemo(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
