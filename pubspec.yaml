@@ -36,6 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.8
   audioplayers: ^6.5.1
 
+  # File picker for selecting files
+  file_picker: ^6.1.1
+  
+  # Path provider for accessing file system directories
+  path_provider: ^2.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
