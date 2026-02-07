@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'models.dart';
-import 'dart:ui';
-
-
+import 'package:url_launcher/url_launcher.dart';
 
 class CVPage extends StatefulWidget {
   const CVPage({super.key});
@@ -26,7 +24,18 @@ class _CVPageState extends State<CVPage> {
     _scrollController.dispose();
     super.dispose();
   }
-
+  void _launchUrl(String url) async {
+  final Uri uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } else {
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Could not launch $url')),
+      );
+    }
+  }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,14 +43,15 @@ class _CVPageState extends State<CVPage> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: const AssetImage('itc_logo.png'),
+            image: const AssetImage(CVData.background),//change image background here
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-              const Color.fromARGB(255, 136, 150, 228).withValues(alpha: 0.8),
+              const Color.fromARGB(255, 252, 252, 252).withValues(alpha: 0.8),
               BlendMode.dstATop,
             ),
           ),
         ),
+
   child: SingleChildScrollView(
     controller: _scrollController,
     child: Column(
@@ -67,11 +77,11 @@ class _CVPageState extends State<CVPage> {
     return AppBar(
       title: const Text('My-CV'),
       elevation: 0,
-      backgroundColor: const Color(0xFF0F0F0F),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1),
         child: Container(
-          color: const Color(0xFF2A2A2A),
+          color: const Color.fromARGB(255, 11, 11, 11),
           height: 1,
         ),
       ),
@@ -146,7 +156,7 @@ class _CVPageState extends State<CVPage> {
           image: Image.asset('assets/itc_logo.png').image,
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
-            Colors.black.withValues(alpha: 0.6),
+            const Color.fromARGB(255, 82, 118, 130).withValues(alpha: 0.6),
             BlendMode.darken,
           ),
         ),
@@ -163,7 +173,7 @@ class _CVPageState extends State<CVPage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: Colors.black.withValues(alpha: 0.75),
+                  color: const Color.fromARGB(255, 70, 180, 210).withValues(alpha: 0.75),
                   width: 3,
                 ),
               ),
@@ -172,11 +182,11 @@ class _CVPageState extends State<CVPage> {
                   CVData.profileImageUrl,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Container(
-                    color: const Color(0xFF00D9FF),
+                    color: const Color.fromARGB(255, 130, 206, 219),
                     child: const Icon(
                       Icons.person,
                       size: 60,
-                      color: Color(0xFF00D9FF),
+                      color: Color.fromARGB(255, 75, 113, 120),
                     ),
                   ),
                 ),
@@ -189,7 +199,7 @@ class _CVPageState extends State<CVPage> {
               style: TextStyle(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 255, 254, 254),
+                color: Color.fromARGB(255, 255, 255, 255),
                 fontFamily: 'IBMPlexSerif',
               ),
               textAlign: TextAlign.center,
@@ -200,7 +210,7 @@ class _CVPageState extends State<CVPage> {
               CVData.professionalTitle,
               style: TextStyle(
                 fontSize: 20,
-                color: Color.fromARGB(255, 255, 3, 3),
+                color: Color.fromARGB(255, 246, 244, 244),
                 fontWeight: FontWeight.w900,
                 fontFamily: 'IBMPlexSans',
               ),
@@ -214,7 +224,7 @@ class _CVPageState extends State<CVPage> {
                 CVData.bio,
                 style: TextStyle(
                   fontSize: 19,
-                  color: Color.fromARGB(255, 249, 249, 249),
+                  color: Color.fromARGB(255, 255, 255, 255),
                   height: 1.5,
                   fontWeight: FontWeight.w400,
                   fontFamily: 'IBMPlexSans',
@@ -278,7 +288,7 @@ class _CVPageState extends State<CVPage> {
         Text(
           CVData.aboutTitle,
           style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                color: const Color(0xFF00D9FF),
+                color: const Color.fromARGB(255, 0, 0, 0),
               ),
         ),
         const SizedBox(height: 24),
@@ -291,7 +301,7 @@ class _CVPageState extends State<CVPage> {
                 CVData.aboutContent,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       height: 1.8,
-                      color: const Color.fromARGB(255, 12, 11, 11),
+                      color: const Color.fromARGB(255, 0, 0, 0),fontWeight: FontWeight.w500
                     ),
               ),
             ),
@@ -306,13 +316,13 @@ class _CVPageState extends State<CVPage> {
                       Text(
                         'Quick Facts',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              color: const Color.fromARGB(255, 0, 208, 255),
+                              color: const Color.fromARGB(255, 234, 234, 234),
                             ),
                       ),
                       const SizedBox(height: 16),
                       _buildQuickFact('Location:', CVData.location),
-                      _buildQuickFact('Experience:', '5+ Years'),
-                      _buildQuickFact('Specialization:', 'Full Stack'),
+                      _buildQuickFact('Experience:', '1+ Years'),
+                      _buildQuickFact('Specialization:', 'Mobile & Use AI'),
                       _buildQuickFact('Email:', CVData.email),
                     ],
                   ),
@@ -334,7 +344,7 @@ class _CVPageState extends State<CVPage> {
           Text(
             label,
             style: const TextStyle(
-              color: Color(0xFFB0B0B0),
+              color: Color.fromARGB(255, 255, 255, 255),
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
@@ -342,7 +352,7 @@ class _CVPageState extends State<CVPage> {
           Text(
             value,
             style: const TextStyle(
-              color: Color.fromARGB(255, 251, 250, 250),
+              color: Color.fromARGB(255, 255, 255, 255),
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
@@ -359,7 +369,7 @@ class _CVPageState extends State<CVPage> {
         Text(
           'Education',
           style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                color: const Color.fromARGB(255, 0, 0, 0),
+                color: const Color.fromARGB(255, 0, 0, 0)
               ),
         ),
         const SizedBox(height: 24),
@@ -369,7 +379,7 @@ class _CVPageState extends State<CVPage> {
                 decoration: const BoxDecoration(
                   border: Border(
                     left: BorderSide(
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: Color.fromARGB(255, 0, 0, 0),
                       width: 3,
                     ),
                   ),
@@ -381,14 +391,14 @@ class _CVPageState extends State<CVPage> {
                     Text(
                       edu.degree,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: const Color.fromARGB(255, 79, 119, 240),
+                        color: const Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       edu.school,
                       style: const TextStyle(
-                        color: Color.fromARGB(255, 254, 34, 34),
+                        color: Color.fromARGB(255, 0, 0, 0),
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -404,7 +414,7 @@ class _CVPageState extends State<CVPage> {
                     Text(
                       edu.details,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: const Color.fromARGB(255, 37, 250, 126),
+                        color: const Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
                   ],
@@ -422,7 +432,7 @@ class _CVPageState extends State<CVPage> {
         Text(
           'Experience',
           style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                color: const Color.fromARGB(255, 7, 238, 234),
+                color: const Color.fromARGB(255, 0, 0, 0),
               ),
         ),
         const SizedBox(height: 24),
@@ -638,7 +648,9 @@ class _CVPageState extends State<CVPage> {
         children: [
           Text(
             'Let\'s work together on something amazing',
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyMedium?.
+            copyWith(color: const Color.fromARGB(255, 0, 0, 0)) ??
+            const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
           ),
           const SizedBox(height: 16),
           Row(
@@ -646,41 +658,42 @@ class _CVPageState extends State<CVPage> {
             children: [
               TextButton(
                 onPressed: () => _launchUrl('mailto:${CVData.email}'),
+                style: TextButton.styleFrom(
+                  foregroundColor: const Color.fromARGB(255, 255, 0, 0),
+                ),
                 child: const Text('Email'),
               ),
               const SizedBox(width: 24),
               TextButton(
                 onPressed: () => _launchUrl(CVData.linkedIn),
+                style: TextButton.styleFrom(
+                  foregroundColor: const Color.fromARGB(255, 38, 0, 251),
+                ),
                 child: const Text('LinkedIn'),
               ),
               const SizedBox(width: 24),
               TextButton(
                 onPressed: () => _launchUrl(CVData.github),
+                style: TextButton.styleFrom(
+                  foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+                ),
                 child: const Text('GitHub'),
               ),
               const SizedBox(width: 24),
               TextButton(
                 onPressed: () => _launchUrl(CVData.telegram),
+                style: TextButton.styleFrom(
+                  foregroundColor: const Color.fromARGB(255, 255, 0, 0),
+                ),
                 child: const Text('Telegram'),
               ),
             ],
           ),
           const SizedBox(height: 16),
-          Text(
-            '© 2024 ${CVData.fullName}. All rights reserved. Built with Flutter.',
-            style: Theme.of(context).textTheme.bodySmall,
-            textAlign: TextAlign.center,
-          ),
+          
         ],
       ),
     );
   }
 
-  void _launchUrl(String url) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Opening: $url')),
-    );
-    // In a real app, use: url_launcher package
-    // launchUrl(Uri.parse(url));
-  }
 }

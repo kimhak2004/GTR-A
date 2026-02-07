@@ -1,134 +1,152 @@
 import 'package:flutter/material.dart';
+import 'cv_page.dart';
+import 'models.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const CVApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CVApp extends StatelessWidget {
+  const CVApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'My CV',
+      title: 'Professional CV - ${CVData.fullName}',
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: Colors.blue,
-      ),
-      home: const MyHomePage(
-        title: 'Resumé',
-        titleStyle: TextStyle(
-          color: Colors.black,
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          fontStyle: FontStyle.italic,
+        brightness: Brightness.dark,
+        // Modern Minimalist Color Scheme
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFF00D9FF), // Teal accent
+          onPrimary: Color.fromARGB(255, 74, 225, 252), // Deep charcoal
+          surface: Color(0xFF0F0F0F), // Deep charcoal background
+          onSurface: Color(0xFFFFFFFF), // White text
+          surfaceContainerHighest: Color.fromARGB(255, 255, 254, 254), // Card background
+          outline: Color(0xFF2A2A2A), // Border color
+        ),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 26, 192, 237),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromARGB(255, 253, 252, 252),
+          elevation: 0,
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            color: Color.fromARGB(255, 247, 245, 245),
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'IBMPlexSerif',
+          ),
+        ),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+            fontSize: 56,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFFFFFF),
+            fontFamily: 'IBMPlexSerif',
+          ),
+          displayMedium: TextStyle(
+            fontSize: 44,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFFFFFF),
+            fontFamily: 'IBMPlexSerif',
+          ),
+          displaySmall: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFFFFFF),
+            fontFamily: 'IBMPlexSerif',
+          ),
+          headlineMedium: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFFFFFF),
+            fontFamily: 'IBMPlexSerif',
+          ),
+          headlineSmall: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFFFFFF),
+            fontFamily: 'IBMPlexSerif',
+          ),
+          titleLarge: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFFFFFFFF),
+            fontFamily: 'IBMPlexSans',
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 16,
+            color: Color(0xFFFFFFFF),
+            fontFamily: 'IBMPlexSans',
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 14,
+            color: Color(0xFFE0E0E0),
+            fontFamily: 'IBMPlexSans',
+          ),
+          bodySmall: TextStyle(
+            fontSize: 12,
+            color: Color(0xFFB0B0B0),
+            fontFamily: 'IBMPlexSans',
+          ),
+        ),
+        cardTheme: CardThemeData(
+          color: const Color.fromARGB(255, 3, 3, 3),
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: const BorderSide(
+              color: Color.fromARGB(255, 255, 255, 255),
+              width: 1,
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: const Color(0xFF1A1A1A),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Color(0xFF2A2A2A)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Color(0xFF00D9FF), width: 2),
+          ),
+          labelStyle: const TextStyle(color: Color(0xFFB0B0B0)),
+          hintStyle: const TextStyle(color: Color(0xFF3A3A3A)),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF00D9FF),
+            foregroundColor: const Color(0xFF0F0F0F),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            textStyle: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'IBMPlexSans',
+            ),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+            side: const BorderSide(color: Color.fromARGB(255, 9, 22, 25), width: 1),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
         ),
       ),
-    );
-  }
-}
-
-// Fixed variable declaration
-final Widget personalImage = Image.asset(
-  'assets/Personal.jpg',
-  fit: BoxFit.cover,
-  errorBuilder: (context, error, stackTrace) => Container(
-    color: Colors.grey[300],
-    child: const Icon(Icons.person, size: 50),
-  ),
-);
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title, this.titleStyle});
-  final String title;
-  final TextStyle? titleStyle;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title, style: widget.titleStyle),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildLogo('assets/itc_logo.png'),
-                _buildLogo('assets/gtr_logo.png'),
-              ],
-            ),
-            const SizedBox(height: 25),
-            const Text(
-              "ជាតិ សាសនា ព្រះមហាក្សត្រ",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const Divider(thickness: 2),
-            const SizedBox(height: 20),
-            
-            // Fixed Profile Section
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: SizedBox(
-                    width: 120,
-                    height: 150,
-                    child: personalImage, // Using the variable
-                  ),
-                ),
-                const SizedBox(width: 20),
-                const Expanded( // Added Expanded to prevent text overflow
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Name: Kao Kimhak", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text("Major: Telecommunication and Networking Engineering"),
-                      Text("Email: kaokimhak2019@email.com"),
-                      Text("Contact: 093391505"), // Fixed "Content" to "Contact"
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("About me",style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                Text("I'am year4 student at the Institute of Technology of Cambodia, pursuing a degree in Telecommunication and Networking Engineering.\n- I have a strong passion for technology and innovation, and I am eager to contribute my skills and knowledge to the field."),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLogo(String path) {
-    return SizedBox(
-      width: 80,
-      height: 80,
-      child: Image.asset(
-        path,
-        errorBuilder: (context, error, stackTrace) => const Icon(Icons.image_not_supported, size: 40),
-      ),
+      home: const CVPage(),
     );
   }
 }
